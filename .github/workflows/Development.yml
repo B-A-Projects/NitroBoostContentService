@@ -20,16 +20,16 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore NuGet packages
-        run: dotnet restore ./NitroBoostConsoleService.sln
+        run: dotnet restore ./NitroBoostContentService.sln
 
       - name: Build solution
-        run: dotnet build ./NitroBoostConsoleService.sln -c Debug --no-restore
+        run: dotnet build ./NitroBoostContentService.sln -c Debug --no-restore
 
       - name: Upload build as artifact
         uses: actions/upload-artifact@v4
         with:
           name: dev-build
-          path: ./NitroBoostConsoleService.Web/bin/Debug/net8.0
+          path: ./NitroBoostContentService.Web/bin/Debug/net8.0
 
   test:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
           name: dev-build
 
       - name: Run unit tests
-        run: dotnet test NitroBoostConsoleService.Test.dll
+        run: dotnet test NitroBoostContentService.Test.dll
 
   sonar:
     runs-on: windows-latest
@@ -93,8 +93,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"B-A-Projects_NitroBoostConsoleService" /o:"b-a-projects" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build ./NitroBoostConsoleService.sln -c Release
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"B-A-Projects_NitroBoostContentService" /o:"b-a-projects" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build ./NitroBoostContentService.sln -c Release
           dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
@@ -115,7 +115,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: blurrito/nitroboostconsoleservice-dev:latest
+          images: blurrito/NitroBoostContentService-dev:latest
       
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
