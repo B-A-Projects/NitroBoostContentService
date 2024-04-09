@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["NitroBoostContentService.Web/NitroBoostContentService.Web.csproj", "NitroBoostContentService.Web/"]
 COPY ["NitroBoostContentService.Core/NitroBoostContentService.Core.csproj", "NitroBoostContentService.Core/"]
 COPY ["NitroBoostContentService.Data/NitroBoostContentService.Data.csproj", "NitroBoostContentService.Data/"]
-COPY ["NitroBoostContentService.Dependency/NitroBoostContentService.Shared.csproj", "NitroBoostContentService.Shared/"]
+COPY ["NitroBoostContentService.Shared/NitroBoostContentService.Shared.csproj", "NitroBoostContentService.Shared/"]
 RUN dotnet restore "NitroBoostContentService.Web/NitroBoostContentService.Web.csproj"
 COPY . .
 WORKDIR "/src/NitroBoostContentService.Web"
