@@ -31,6 +31,12 @@ jobs:
           name: dev-build
           path: ./NitroBoostContentService.Web/bin/Debug/net8.0
 
+      - name: Upload tests as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-test
+          path: ./NitroBoostContentService.Test/bin/Debug/net8.0
+
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -39,6 +45,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dev-build
+
+      - name: Download tests for existing build
+        uses: actions/download-artifact@v4
+        with:
+          name: dev-test
 
       - name: Run unit tests
         run: dotnet test NitroBoostContentService.Test.dll
