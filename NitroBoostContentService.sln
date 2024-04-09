@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroBoostContentService.Web", "NitroBoostContentService.Web\NitroBoostContentService.Web.csproj", "{FF0B2665-2692-40D1-9294-A389B2254829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroBoostContentService.Core", "NitroBoostContentService.Core\NitroBoostContentService.Core.csproj", "{9C535C2E-78DB-43FF-AD6B-965D5F476D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroBoostContentService.Data", "NitroBoostContentService.Data\NitroBoostContentService.Data.csproj", "{52C61499-BDDD-4DB0-9618-957CEA4ADB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroBoostContentService.Shared", "NitroBoostContentService.Shared\NitroBoostContentService.Shared.csproj", "{2125DD1C-692A-4563-A690-A089EBABFC50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF0B2665-2692-40D1-9294-A389B2254829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF0B2665-2692-40D1-9294-A389B2254829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF0B2665-2692-40D1-9294-A389B2254829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF0B2665-2692-40D1-9294-A389B2254829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C535C2E-78DB-43FF-AD6B-965D5F476D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C535C2E-78DB-43FF-AD6B-965D5F476D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C535C2E-78DB-43FF-AD6B-965D5F476D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C535C2E-78DB-43FF-AD6B-965D5F476D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C61499-BDDD-4DB0-9618-957CEA4ADB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C61499-BDDD-4DB0-9618-957CEA4ADB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C61499-BDDD-4DB0-9618-957CEA4ADB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C61499-BDDD-4DB0-9618-957CEA4ADB45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2125DD1C-692A-4563-A690-A089EBABFC50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2125DD1C-692A-4563-A690-A089EBABFC50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2125DD1C-692A-4563-A690-A089EBABFC50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2125DD1C-692A-4563-A690-A089EBABFC50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

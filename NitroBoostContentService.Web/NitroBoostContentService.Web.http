@@ -1,0 +1,6 @@
+@NitroBoostContentService.Web_HostAddress = http://localhost:5210
+
+GET {{NitroBoostContentService.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
