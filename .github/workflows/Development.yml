@@ -128,7 +128,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/NitroBoostContentService-dev
+          images: ${{ secrets.DOCKER_USERNAME }}/NitroBoostContentService
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
