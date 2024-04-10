@@ -138,4 +138,4 @@ jobs:
 
       - name: Build and push
         run: |
-          docker buildx build -t ${{ secrets.DOCKER_USERNAME }}/nitroboostcontentservice:Development --platform linux/arm64 --push .
+          docker buildx build -t ${{ secrets.DOCKER_USERNAME }}/nitroboostcontentservice:Development --platform linux/arm64 --build-arg "TARGETARCH=arm64" --push .
