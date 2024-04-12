@@ -29,13 +29,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dev-build
-          path: ./NitroBoostContentService.Web/bin/Debug/net8.0
+          path: ./NitroBoostContentService.Web/bin/Debug/net7.0
 
       - name: Upload tests as artifact
         uses: actions/upload-artifact@v4
         with:
           name: dev-test
-          path: ./NitroBoostContentService.Test/bin/Debug/net8.0
+          path: ./NitroBoostContentService.Test/bin/Debug/net7.0
 
   test:
     runs-on: ubuntu-latest
