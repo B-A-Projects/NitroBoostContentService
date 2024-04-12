@@ -1,5 +1,7 @@
-﻿namespace NitroBoostContentService.Core;
-
-public class Class1
+﻿namespace NitroBoostContentService.Core
 {
+    public class Class1
+    {
+
+    }
 }

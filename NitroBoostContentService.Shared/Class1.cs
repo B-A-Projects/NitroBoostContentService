@@ -1,5 +1,7 @@
-﻿namespace NitroBoostContentService.Shared;
-
-public class Class1
+﻿namespace NitroBoostContentService.Shared
 {
+    public class Class1
+    {
+
+    }
 }

@@ -4,6 +4,6 @@ services:
   console_service:
     container_name: NitroBoostContentService
     build: .
-    image: nitroboostcontentservice_image
+    image: nitrobootstcontentservice_image
     ports:
       - "8080:8080"

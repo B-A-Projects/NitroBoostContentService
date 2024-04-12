@@ -1,5 +1,7 @@
-﻿namespace NitroBoostContentService.Data;
-
-public class Class1
+﻿namespace NitroBoostContentService.Data
 {
+    public class Class1
+    {
+
+    }
 }

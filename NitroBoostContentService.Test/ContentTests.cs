@@ -1,10 +1,11 @@
-namespace NitroBoostContentService.Test;
-
-public class ContentTests
+namespace NitroBoostContentService.Test
 {
-    [Fact]
-    public void Test_Dummy_AlwaysTrue()
+    public class ContentTests
     {
-        Assert.True(true);
+        [Fact]
+        public void Test_Dummy_AlwaysTrue()
+        {
+            Assert.True(true);
+        }
     }
 }

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-deployment
+  labels:
+    app: nitroboost-content
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 100%
+  selector:
+    matchLabels:
+      app: content-pod
+  template:
+    metadata:
+      labels:
+        app: content-pod
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: kubernetes.io/hostname
+      #           operator: In
+      #           values:
+      #           - nitroboost-m03
+      containers:
+        - name: content-pod
+          image: blurrito/nitroboostcontentservice:dev
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "125m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "128Mi"
+      terminationGracePeriodSeconds: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: content-service
+  labels:
+    app: nitroboost-content
+spec:
+  type: ClusterIP
+  selector:
+    app: content-pod
+  ports:
+    - protocol: TCP
+      port: 8080
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: content-hpa
+  labels:
+    app: nitroboost-content
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: content-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 10
