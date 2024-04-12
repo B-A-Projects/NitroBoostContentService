@@ -10,4 +10,4 @@ spec:
     app: content-pod
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8081
