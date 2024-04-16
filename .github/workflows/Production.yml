@@ -55,15 +55,14 @@ jobs:
 
     # Build the Docker image
     - name: Build
-      run: |-
+      run: |
         docker buildx build \
           --platform linux/amd64 \
           --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           --build-arg TARGETARCH="amd64" \
-          -f Dockerfile.amd
-          .
+          -f Dockerfile.amd .
 
     # Push the Docker image to Google Container Registry
     - name: Publish
