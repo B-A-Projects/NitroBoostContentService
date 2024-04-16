@@ -29,7 +29,7 @@ spec:
       #           - nitroboost-m03
       containers:
         - name: content-pod
-          image: blurrito/nitroboostcontentservice:dev
+          image: blurrito/nitroboostcontentservice:latest
           ports:
             - name: http
               containerPort: 8080

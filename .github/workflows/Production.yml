@@ -21,14 +21,12 @@ env:
   DEPLOYMENT_NAME: content-deployment # Add your deployment name here.
   IMAGE: nitroboostcontentservice
   GITHUB_SHA: ${{ github.sha }}
-  GAR_REPO: nitroboost
-  GAR_ZONE: europe-west1
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment: Development
 
     steps:
     - name: Checkout
@@ -36,6 +34,16 @@ jobs:
       
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
+        
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Build the Docker image
+    - name: Build
+      run: docker buildx build --platform linux/amd64 --tag ${{ $DOCKER_USERNAME }}/{{ $IMAGE }}:latest --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
 
     - name: Login at GKE
       uses: google-github-actions/auth@v2
@@ -45,21 +53,12 @@ jobs:
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v2
 
-    # Configure Docker to use the gcloud command-line tool as a credential
-    # helper for authentication
-    - run: |-
-        gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${{ env.GAR_ZONE }}-docker.pkg.dev
-
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@v2
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-
-    # Build the Docker image
-    - name: Build
-      run: docker buildx build --platform linux/amd64 --tag ${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }} --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
-
+        
    # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
