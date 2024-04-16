@@ -47,7 +47,7 @@ jobs:
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
     - run: |-
-        gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${{ enc.GAR_ZONE }}-docker.pkg.dev
+        gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${{ env.GAR_ZONE }}-docker.pkg.dev
 
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@v2
@@ -62,7 +62,7 @@ jobs:
     # Publish the docker image
     - name: Publish
       run: |-
-        docker push "${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }}"
+        docker push ${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }}
     
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
