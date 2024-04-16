@@ -58,14 +58,9 @@ jobs:
 
     # Build the Docker image
     - name: Build
-      run: docker buildx build --platform linux/amd64 --tag ${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }} --build-arg TARGETARCH="amd64" -f Dockerfile.amd .
+      run: docker buildx build --platform linux/amd64 --tag ${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }} --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
 
-    # Publish the docker image
-    - name: Publish
-      run: |-
-        docker push ${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }}
-    
-    # Deploy the Docker image to the GKE cluster
+   # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
         kubectl apply -f manifests/deployment.yaml
