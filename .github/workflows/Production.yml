@@ -43,7 +43,7 @@ jobs:
 
     # Build the Docker image
     - name: Build
-      run: docker buildx build --platform linux/amd64 --tag ${{ secrets.DOCKER_USERNAME }}/${{ IMAGE }}:latest --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
+      run: docker buildx build --platform linux/amd64 --tag ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE }}:latest --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
 
     - name: Login at GKE
       uses: google-github-actions/auth@v2
