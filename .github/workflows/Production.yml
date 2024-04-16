@@ -21,6 +21,7 @@ env:
   DEPLOYMENT_NAME: content-deployment # Add your deployment name here.
   IMAGE: nitroboostcontentservice
   GITHUB_SHA: ${{ github.sha }}
+  GAR_ZONE: europe-west1
 
 jobs:
   setup-build-publish-deploy:
@@ -46,7 +47,7 @@ jobs:
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
     - run: |-
-        gcloud --quiet auth configure-docker
+        gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${{ enc.GAR_ZONE }}-docker.pkg.dev
 
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@v2
@@ -55,19 +56,17 @@ jobs:
         location: ${{ env.GKE_ZONE }}
 
     # Build the Docker image
-    - name: Build and push
-      run: docker buildx build --platform linux/amd64 --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }} --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
+    - name: Build
+      run: docker buildx build --platform linux/amd64 --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }} --build-arg TARGETARCH="amd64" -f Dockerfile.amd .
 
-    # Set up kustomize
-    - name: Set up Kustomize
+    # Publish the docker image
+    - name: Publish
       run: |-
-        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-        chmod u+x ./kustomize
-
+        docker push "${{ env.GAR_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }}"
+    
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        ./kustomize edit set image gcr.io/PROJECT_ID-IMAGE:TAG=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE }}:${{ env.GITHUB_SHA }}
-        ./kustomize build . | kubectl apply -f -
+        kubectl apply -f manifests/deployment.yaml
         kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
         kubectl get services -o wide
