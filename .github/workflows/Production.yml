@@ -21,6 +21,7 @@ env:
   DEPLOYMENT_NAME: content-deployment # Add your deployment name here.
   IMAGE: nitroboostcontentservice
   GITHUB_SHA: ${{ github.sha }}
+  GAR_REPO: nitroboost
   GAR_ZONE: europe-west1
 
 jobs:
