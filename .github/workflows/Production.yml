@@ -1,13 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
-
-name: Build and Deploy to GKE
+name: Production
 
 on:
   push:
@@ -43,7 +34,7 @@ jobs:
 
     # Build the Docker image
     - name: Build
-      run: docker buildx build --platform linux/amd64 --tag ${{ $DOCKER_USERNAME }}/{{ $IMAGE }}:latest --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
+      run: docker buildx build --platform linux/amd64 --tag ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE }}:latest --build-arg TARGETARCH="amd64" -f Dockerfile.amd --push .
 
     - name: Login at GKE
       uses: google-github-actions/auth@v2
@@ -62,6 +53,9 @@ jobs:
    # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
+        kubectl apply -f manifests/hpa.yaml
         kubectl apply -f manifests/deployment.yaml
+        kubectl apply -f manifests/backendconfig.yaml
+        kubectl apply -f manifests/service.yaml
         kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
         kubectl get services -o wide
