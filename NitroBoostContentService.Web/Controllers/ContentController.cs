@@ -7,7 +7,7 @@ namespace KubernetesDummy.Web.Controllers
     public class ContentController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<string> Index() => Ok("Hello world from the content service!");
+        public ActionResult<string> Index() => Ok("Hello world from the content service! This has now changed!");
 
         [HttpGet("hello")]
         public ActionResult<string> Hello([FromQuery] string name) =>

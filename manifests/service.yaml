@@ -4,10 +4,18 @@ metadata:
   name: content-service
   labels:
     app: nitroboost-content
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    beta.cloud.google.com/backend-config: '{"default": "content-backendconfig"}'
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: content-pod
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
   ports:
-    - protocol: TCP
-      port: 8081
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 5000
+      nodePort: 31000

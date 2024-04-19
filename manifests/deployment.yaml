@@ -32,7 +32,7 @@ spec:
           image: blurrito/nitroboostcontentservice:latest
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 5000
           resources:
             requests:
               cpu: "125m"
